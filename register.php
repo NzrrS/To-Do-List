@@ -36,7 +36,8 @@ if (isset($_POST['sign-up']) && $_SERVER['REQUEST_METHOD'] === "POST") {
     if (isset($_SESSION['error'])) {
 		header("Location: " . $_SERVER['PHP_SELF']);
 		exit;
-	}
+	} 
+    
 }
 ?>
 
