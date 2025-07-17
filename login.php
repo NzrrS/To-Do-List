@@ -1,32 +1,45 @@
 <?php
+session_start();
 include 'db.php';
 
-$error = '';
+if (isset($_POST['login'])) {
+    $Email = trim($_POST['email']);
+    $Psw = trim($_POST['psw']);
+    $error = '';
 
-if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    $Email = $_POST['email'];
-    $Psw = $_POST['psw'];
-
-    $query = 'SELECT * FROM users WHERE Email = ?';
-    $pdoStmt = $pdo->prepare($query);
-    $pdoStmt->execute([$Email]);
-    $user = $pdoStmt->fetch();
-
-    if ($user) {
-        if (password_verify($Psw, $user['Psw'])) {
-            session_start();
-            $_SESSION['user_id'] = $user['Id'];
-            header("Location: index.php");
-            exit;
-        } else {
-            $error = "Incorrect Password";
-        }
+    // Validate inputs
+    if (empty($Email) || empty($Psw)) {
+        $_SESSION['error'] = "Please fill in all fields.";
+    } elseif (!filter_var($Email, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION['error'] = "Invalid email format.";
+    } elseif (strlen($Psw) < 8) {
+        $_SESSION['error'] = "Password must be at least 8 characters.";
     } else {
-        $error = "User Not Found";
+        $query = 'SELECT * FROM users WHERE Email = ?';
+        $pdoStmt = $pdo->prepare($query);
+        $pdoStmt->execute([$Email]);
+        $user = $pdoStmt->fetch();
+
+        if ($user) {
+            if (password_verify($Psw, $user['Psw'])) {
+                $_SESSION['user_id'] = $user['Id'];
+                header("Location: index.php");
+                exit;
+            } else {
+                $_SESSION['error'] = "Incorrect password.";
+            }
+        } else {
+            $_SESSION['error'] = "User not found.";
+        }
+    }
+
+    // Redirect to clear POST data and show error once
+    if (isset($_SESSION['error'])) {
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit;
     }
 }
 ?>
-
 
 
 
@@ -57,29 +70,33 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     <div class="container login-card">
         <h2 class="text-center mb-4">Sign in</h2>
 
-        <?php if (!empty($error)): ?>
-            <div>
-                <span><?= htmlspecialchars($error) ?></span>
-            </div>
-        <?php endif; ?>
+
 
         <form method="POST">
+            <?php
+            
+            if (isset($_SESSION['error'])) {
+                echo '<div class="alert alert-danger mt-3" role="alert">' . htmlspecialchars($_SESSION['error']) . '</div>';
+                unset($_SESSION['error']); 
+            }
+            ?>
 
-            <div class="input-group mb-3">
+
+            <div class="input-group">
                 <input type="email" id="email" name="email" class="pe-5" placeholder="Email" />
                 <i class="fa-solid fa-envelope"></i>
             </div>
 
-            <div class="input-group mb-3">
-                <input type="password" id="password" name="psw" class="pe-5" placeholder="Password" />
-                <i class="fa-solid fa-eye-slash" id="eyeicon"></i>
+            <div class="input-group">
+                <input type="password" id="psw" name="psw" class="pe-5" placeholder="Password" />
+                <i class="fa-solid fa-eye-slash" id="eyeicon1"></i>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100">Login</button>
+            <button type="submit" class="btn btn-primary w-100" name="login">Login</button>
         </form>
 
         <p class="text-center bottom-text">
-        Don't have an account ? <br> <a href="register.php" class="link"> Register here</a>
+            Don't have an account ? <br> <a href="register.php" class="link"> Register here</a>
         </p>
     </div>
     <script src="Assets/script.js"></script>

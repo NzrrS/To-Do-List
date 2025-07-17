@@ -44,10 +44,9 @@ body {
   top: 50%;
   transform: translateY(-50%);
   color: gray;
-  
 }
 
-#eyeicon{
+.input-group i {
     cursor: pointer;
 }
 
