@@ -1,7 +1,43 @@
 <?php
 session_start();
 include 'db.php';
-if (isset($_POST['sign-up']))
+if (isset($_POST['sign-up']) && $_SERVER['REQUEST_METHOD'] === "POST") {
+
+    $userName = trim($_POST['user']);
+    $Email = trim($_POST['email']);
+    $Password = trim($_POST['password']);
+    $passwordConfirm = trim($_POST['passwordConfirm']);
+
+
+    if (empty($userName) || empty($Email) || empty($Password) || empty($passwordConfirm)) {
+        $_SESSION["error"] = "Please fill in all fields.";
+    } elseif (!filter_var($Email, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION["error"] = "Invalid email format.";
+    } elseif (strlen($Password) < 8) {
+        $_SESSION['error'] = "Password must be at least 8 characters.";
+    } elseif ($Password != $passwordConfirm) {
+        $_SESSION['error'] = "Password doesn't match.";
+    } else {
+        $query1 = "SELECT * FROM users WHERE Email = ?";
+        $pdoStmt = $pdo->prepare($query1);
+        $pdoStmt->execute([$Email]);
+        if ($pdoStmt->fetch()) {
+            $_SESSION['error'] = "Email is already registered.";
+        } else {
+            $hashed = password_hash($Password, PASSWORD_DEFAULT);
+            $query2 = "INSERT INTO users(Email,Psw,Username) VALUES (?,?,?)";
+            $pdoStmt = $pdo->prepare($query2);
+            $pdoStmt->execute([$Email, $hashed, $userName]);
+            $_SESSION['success'] = "Account created! Please log in.";
+            header("Location: login.php");
+            exit;
+        }
+    }
+    if (isset($_SESSION['error'])) {
+		header("Location: " . $_SERVER['PHP_SELF']);
+		exit;
+	}
+}
 ?>
 
 <!DOCTYPE html>
@@ -28,12 +64,18 @@ if (isset($_POST['sign-up']))
     <div class="container login-card">
         <h2 class="text-center mb-4">Sign up</h2>
         <form action="#" method="post">
+            <?php
+            if (isset($_SESSION['error'])) {
+                echo '<div class="alert alert-danger mt-3" role="alert">' . htmlspecialchars($_SESSION['error']) . '</div>';
+                unset($_SESSION['error']);
+            }
+            ?>
             <div class="input-group mb-3">
                 <input type="text" placeholder="Username" name="user" id="userName">
                 <i class="fa-solid fa-user"></i>
             </div>
             <div class="input-group mb-3">
-                <input type="email" placeholder="Email">
+                <input type="email" placeholder="Email" name="email">
                 <i class="fa-solid fa-envelope"></i>
             </div>
             <div class="input-group mb-3">
