@@ -88,12 +88,12 @@ if (isset($_POST['sign-in']) && $_SERVER['REQUEST_METHOD'] === "POST") {
 
 
 
-			<div class="input-group">
+			<div class="input-group mb-4">
 				<input type="email" id="email" name="email" class="pe-5" placeholder="Email" />
 				<i class="fa-solid fa-envelope"></i>
 			</div>
 
-			<div class="input-group">
+			<div class="input-group mb-4">
 				<input type="password" id="psw" name="psw" class="pe-5" placeholder="Password" />
 				<i class="fa-solid fa-eye-slash" id="eyeicon1"></i>
 			</div>
