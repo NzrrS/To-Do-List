@@ -11,8 +11,7 @@ if ($id) {
 	$user = $pdoStmt->fetch();
 	$userName = $user['Username'];
 } else {
-	header("Location: login.php");
-	exit();
+	$userName = "Guest";
 }
 ?>
 
