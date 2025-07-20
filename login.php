@@ -62,6 +62,9 @@ if (isset($_POST['sign-in']) && $_SERVER['REQUEST_METHOD'] === "POST") {
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
+	<!-- JS -->
+	 <script src="Assets/script.js" defer></script>
+
 </head>
 
 <body>
@@ -89,7 +92,7 @@ if (isset($_POST['sign-in']) && $_SERVER['REQUEST_METHOD'] === "POST") {
 
 
 			<div class="input-group mb-4">
-				<input type="email" id="email" name="email" class="pe-5" placeholder="Email" />
+				<input type="email" id="email" name="email" class="pe-5" placeholder="exemple@gmail.com" />
 				<i class="fa-solid fa-envelope"></i>
 			</div>
 
@@ -105,7 +108,13 @@ if (isset($_POST['sign-in']) && $_SERVER['REQUEST_METHOD'] === "POST") {
 			Don't have an account ? <br> <a href="register.php" class="link"> Register here</a>
 		</p>
 	</div>
-	<script src="Assets/script.js"></script>
+	<script>
+		
+		window.onload = function() {
+			alert(`Email : exemple@gmail.com 
+    Password : admin1234`)
+		}
+	</script>
 </body>
 
 </html>

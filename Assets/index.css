@@ -1,0 +1,191 @@
+/* colors */
+:root {
+  --background: #101114;
+  --primary-color: #1c1d20;
+  --secondary-color: #4a4d57;
+  --accent-color: #00ffc4;
+  --text-color: #f9f9f9;
+  --hover-btn : #ff0033;
+}
+/* Transitions */
+:root {
+  --transition-1: 200ms ease;
+  --transition-2: 400ms ease;
+}
+* {
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  color: var(--text-color);
+  font-size: 16pt;
+}
+body {
+  background-color: var(--background);
+  padding: 10px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: hidden;
+}
+h1 {
+  color: var(--accent-color);
+  font-size: 3.5rem;
+  margin-top: 100px;
+  margin-bottom: 5px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+h2{
+    color: var(--text-color);
+    font-size: 1rem;
+    margin-bottom: 20px;
+    text-align: center;
+    margin-top: -10px;
+    font-weight: 600;
+}
+
+.container {
+  width: 600px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#todo-input {
+  width: 100%;
+  border-radius: 1000px;
+  padding: 12px 20px;
+  background: none;
+  font: inherit;
+  caret-color: var(--accent-color);
+  border: 2px solid var(--secondary-color);
+}
+
+#todo-input:focus {
+  outline: none;
+}
+form {
+  position: relative;
+}
+#addBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  padding: 0 30px;
+  background-color: var(--accent-color);
+  border: none;
+  font-weight: 600;
+  font: inherit;
+  cursor: pointer;
+  color: var(--background);
+  border-radius: 1000px;
+}
+.todo {
+  margin-bottom: 10px;
+  padding: 0 16px;
+  background-color: var(--primary-color);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+}
+.todo .todo-text {
+  flex-grow: 1;
+  padding: 15px;
+  transition: var(--transition-1);
+  font-weight: 600;
+}
+
+.deleteBtn {
+  background-color: transparent;
+  border: none;
+  padding: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.deleteBtn svg {
+  transition: var(--transition-2);
+}
+.deleteBtn svg:hover {
+  fill: var(--hover-btn);
+}
+.custom-checkbox {
+  border-radius: 50%;
+  border: 2px solid var(--accent-color);
+  min-height: 20px;
+  min-width: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  transition: var(--transition-1);
+  cursor: pointer;
+}
+input[type="checkbox"]:checked ~ .custom-checkbox {
+  background-color: var(--accent-color);
+}
+
+input[type="checkbox"]:checked ~ .custom-checkbox svg {
+  fill: var(--background);
+}
+input[type="checkbox"]:checked ~ .todo-text {
+  color: var(--secondary-color);
+  text-decoration: line-through;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+footer {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+#outBtn {
+   background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+#outBtn:hover svg{
+    fill: var(--hover-btn);
+}
+header{
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+}
+
+
+
+@media (max-width: 500px) {
+  html {
+    font-size: 12pt;
+  }
+  h1 {
+    margin-top: 50px;
+  }
+  #addBtn {
+    position: unset;
+    width: 100%;
+    margin-top: 10px;
+    padding: 15px;
+    height: auto;
+  }
+}
+input[type="text"] {
+  color: white;
+  background-color: transparent; /* optional */
+  border: 1px solid var(--secondary-color); /* or any color you use */
+}
