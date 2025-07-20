@@ -108,13 +108,7 @@ if (isset($_POST['sign-in']) && $_SERVER['REQUEST_METHOD'] === "POST") {
 			Don't have an account ? <br> <a href="register.php" class="link"> Register here</a>
 		</p>
 	</div>
-	<script>
-		
-		window.onload = function() {
-			alert(`Email : exemple@gmail.com 
-    Password : admin1234`)
-		}
-	</script>
+	
 </body>
 
 </html>
