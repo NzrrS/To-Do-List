@@ -1,9 +1,9 @@
 <?php
 try {
 
-    $dsn = 'mysql:host=localhost;dbname=toDoApp';
-    $user = 'root';
-    $psw = '';
+    $dsn = 'mysql:host=sql104.infinityfree.com;dbname=if0_39518287_mytodo';
+    $user = 'if0_39518287';
+    $psw = 'xWy61raWM6';
     $pdo = new PDO($dsn, $user, $psw);
 } catch (PDOException $e) {
     die('erreur de connection' . $e->getMessage());
