@@ -13,7 +13,7 @@ https://todonzr.infinityfreeapp.com/
 
 ## Technologies
 
-- HTML, CSS  
+- CSS  
 - PHP  
 - MySQL
 - Js
