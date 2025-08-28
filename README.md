@@ -4,7 +4,7 @@ This is the source code for the ToDo website, a to-do list app.
 
 ## Live Demo
 
-https://todonzr.infinityfreeapp.com/
+[demo](https://todonzr.infinityfreeapp.com/)
 
 ## Features
 
